@@ -1,1 +1,1 @@
-# Hitchhiker-s-Guide-To-Typescript
+# Hitchhikers-Guide-To-Typescript
