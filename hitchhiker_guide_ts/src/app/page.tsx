@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check, ChevronsUpDown, Code2, Search } from "lucide-react";
+import { Code2 } from "lucide-react";
 import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
@@ -13,13 +13,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Label } from "@/components/ui/label";
+
 import { Separator } from "@/components/ui/separator";
 import {
   Sidebar,
@@ -28,16 +22,12 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarHeader,
-  SidebarInput,
-  SidebarInset,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-
-const versions = ["5.3.3", "5.2.2", "5.1.6", "4.9.5"];
 
 const navigation = [
   {
@@ -116,64 +106,27 @@ const navigation = [
 ];
 
 function TypeScriptDocs({ children }: { children: React.ReactNode }) {
-  const [selectedVersion, setSelectedVersion] = React.useState(versions[0]);
-
   return (
-    <>
+    <div className="flex">
       <Sidebar>
         <SidebarHeader>
           <SidebarMenu>
-            <SidebarMenuItem>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton
-                    size="lg"
-                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                  >
-                    <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-blue-500 text-white">
-                      <Code2 className="size-4" />
-                    </div>
-                    <div className="flex flex-col gap-0.5 leading-none">
-                      <span className="font-semibold">TypeScript</span>
-                      <span className="text-xs">v{selectedVersion}</span>
-                    </div>
-                    <ChevronsUpDown className="ml-auto size-4" />
-                  </SidebarMenuButton>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  className="w-[--radix-dropdown-menu-trigger-width]"
-                  align="start"
-                >
-                  {versions.map((version) => (
-                    <DropdownMenuItem
-                      key={version}
-                      onSelect={() => setSelectedVersion(version)}
-                    >
-                      v{version}
-                      {version === selectedVersion && (
-                        <Check className="ml-auto size-4" />
-                      )}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+            <SidebarMenuItem style={{ listStyleType: "none" }}>
+              <SidebarMenuButton
+                size="sm"
+                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              >
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-blue-500 text-white">
+                  <Code2 className="size-4" />
+                </div>
+                <div className="flex flex-col gap-0.5 leading-none">
+                  <span className="font-semibold">
+                    Hitchhiker's Guide to TypeScript
+                  </span>
+                </div>
+              </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
-          <form>
-            <SidebarGroup className="py-0">
-              <SidebarGroupContent className="relative">
-                <Label htmlFor="search" className="sr-only">
-                  Search documentation
-                </Label>
-                <SidebarInput
-                  id="search"
-                  placeholder="Search documentation..."
-                  className="pl-8"
-                />
-                <Search className="pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 select-none text-muted-foreground" />
-              </SidebarGroupContent>
-            </SidebarGroup>
-          </form>
         </SidebarHeader>
         <SidebarContent>
           {navigation.map((section) => (
@@ -214,25 +167,9 @@ function TypeScriptDocs({ children }: { children: React.ReactNode }) {
         </SidebarContent>
         <SidebarRail />
       </Sidebar>
-      <SidebarInset>
-        <header className="sticky top-0 flex h-14 items-center gap-2 border-b bg-background px-4">
-          <SidebarTrigger />
-          <Separator orientation="vertical" className="h-4" />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/docs">Core Concepts</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Basic Types</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </header>
-        <div className="flex-1 p-6">{children}</div>
-      </SidebarInset>
-    </>
+
+      <div className="flex-1 p-6">{children}</div>
+    </div>
   );
 }
 
