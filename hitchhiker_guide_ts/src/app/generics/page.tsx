@@ -29,9 +29,7 @@ export default function Home() {
           </li>
         </ul>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">
-          Example
-        </h2>
+        <h2 className="text-2xl font-semibold mt-8 mb-4">Example</h2>
         <ul>
           <code className="block bg-background p-3 rounded">
             function createPair(first: S, second: T): [S, T] &#123; <br />

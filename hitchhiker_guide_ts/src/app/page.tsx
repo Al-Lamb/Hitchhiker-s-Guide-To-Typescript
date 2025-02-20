@@ -3,18 +3,9 @@
 import * as React from "react";
 import { Code2 } from "lucide-react";
 import Link from "next/link";
+import Header from "./Header";
 
 import { Badge } from "@/components/ui/badge";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-
-import { Separator } from "@/components/ui/separator";
 import {
   Sidebar,
   SidebarContent,
@@ -86,69 +77,86 @@ const navigation = [
 ];
 
 function TypeScriptDocs({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex">
-      <Sidebar>
-        <SidebarHeader>
-          <SidebarMenu>
-            <SidebarMenuItem style={{ listStyleType: "none" }}>
-              <SidebarMenuButton
-                size="sm"
-                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-              >
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-blue-500 text-white">
-                  <Code2 className="size-4" />
-                </div>
-                <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">
-                    Hitchhiker's Guide to TypeScript
-                  </span>
-                </div>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader>
-        <SidebarContent>
-          {navigation.map((section) => (
-            <SidebarGroup key={section.title}>
-              <SidebarGroupLabel>{section.title}</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {section.items.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild isActive={item.isActive}>
-                        <Link href={item.href}>
-                          <div className="flex flex-col gap-0.5">
-                            <span>{item.title}</span>
-                            <span className="text-xs text-muted-foreground">
-                              {item.description}
-                            </span>
-                          </div>
-                          {item.badge && (
-                            <Badge
-                              variant={
-                                item.badge === "Advanced"
-                                  ? "destructive"
-                                  : "default"
-                              }
-                              className="ml-auto"
-                            >
-                              {item.badge}
-                            </Badge>
-                          )}
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          ))}
-        </SidebarContent>
-        <SidebarRail />
-      </Sidebar>
+  const [currentSection, setCurrentSection] = React.useState("");
+  const [currentItem, setCurrentItem] = React.useState("");
 
-      <div className="flex-1 p-6">{children}</div>
+  const handleLinkClick = (sectionTitle: string, itemTitle: string) => {
+    setCurrentSection(sectionTitle);
+    setCurrentItem(itemTitle);
+  };
+
+  return (
+    <div>
+      <Header sectionTitle={currentSection} itemTitle={currentItem} />
+      <div className="flex">
+        <Sidebar>
+          <SidebarHeader>
+            <SidebarMenu>
+              <SidebarMenuItem style={{ listStyleType: "none" }}>
+                <SidebarMenuButton
+                  size="sm"
+                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                >
+                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-blue-500 text-white">
+                    <Code2 className="size-4" />
+                  </div>
+                  <div className="flex flex-col gap-0.5 leading-none">
+                    <span className="font-semibold">
+                      Hitchhiker's Guide to TypeScript
+                    </span>
+                  </div>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarHeader>
+          <SidebarContent>
+            {navigation.map((section) => (
+              <SidebarGroup key={section.title}>
+                <SidebarGroupLabel>{section.title}</SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    {section.items.map((item) => (
+                      <SidebarMenuItem key={item.title}>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={item.isActive}
+                          onClick={() =>
+                            handleLinkClick(section.title, item.title)
+                          }
+                        >
+                          <Link href={item.href}>
+                            <div className="flex flex-col gap-0.5">
+                              <span>{item.title}</span>
+                              <span className="text-xs text-muted-foreground">
+                                {item.description}
+                              </span>
+                            </div>
+                            {item.badge && (
+                              <Badge
+                                variant={
+                                  item.badge === "Advanced"
+                                    ? "destructive"
+                                    : "default"
+                                }
+                                className="ml-auto"
+                              >
+                                {item.badge}
+                              </Badge>
+                            )}
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+            ))}
+          </SidebarContent>
+          <SidebarRail />
+        </Sidebar>
+
+        <div className="flex-1 p-6">{children}</div>
+      </div>
     </div>
   );
 }
