@@ -1,101 +1,239 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import * as React from "react";
+import { Check, ChevronsUpDown, Code2, Search } from "lucide-react";
+import Link from "next/link";
+
+import { Badge } from "@/components/ui/badge";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInput,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarRail,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+
+const versions = ["5.3.3", "5.2.2", "5.1.6", "4.9.5"];
+
+const navigation = [
+  {
+    title: "Getting Started",
+    items: [
+      {
+        title: "Introduction to TypeScript",
+        href: "/intro",
+        description: "Learn what TypeScript is and why you should use it",
+      },
+      {
+        title: "Installation",
+        href: "/install",
+        description: "Set up TypeScript in your project",
+      },
+      {
+        title: "TypeScript Configuration",
+        href: "/config",
+        description: "Configure TypeScript for your needs",
+        badge: "Essential",
+      },
+    ],
+  },
+  {
+    title: "Core Concepts",
+    items: [
+      {
+        title: "Basic Types",
+        href: "/types",
+        description: "Understanding TypeScript's basic types",
+        isActive: true,
+      },
+      {
+        title: "Interfaces",
+        href: "/interfaces",
+        description: "Define complex type structures",
+      },
+      {
+        title: "Functions",
+        href: "/functions",
+        description: "Type-safe function declarations",
+      },
+      {
+        title: "Classes",
+        href: "/classes",
+        description: "Object-oriented programming with TypeScript",
+      },
+      {
+        title: "Generics",
+        href: "/generics",
+        description: "Write reusable, type-safe code",
+        badge: "Advanced",
+      },
+    ],
+  },
+  {
+    title: "Advanced Topics",
+    items: [
+      {
+        title: "Type Manipulation",
+        href: "/type-manipulation",
+        description: "Advanced type system features",
+      },
+      {
+        title: "Decorators",
+        href: "/decorators",
+        description: "Annotate your classes and members",
+      },
+      {
+        title: "Utility Types",
+        href: "/utility-types",
+        description: "Built-in type transformations",
+      },
+    ],
+  },
+];
+
+function TypeScriptDocs({ children }: { children: React.ReactNode }) {
+  const [selectedVersion, setSelectedVersion] = React.useState(versions[0]);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    <>
+      <Sidebar>
+        <SidebarHeader>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <SidebarMenuButton
+                    size="lg"
+                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                  >
+                    <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-blue-500 text-white">
+                      <Code2 className="size-4" />
+                    </div>
+                    <div className="flex flex-col gap-0.5 leading-none">
+                      <span className="font-semibold">TypeScript</span>
+                      <span className="text-xs">v{selectedVersion}</span>
+                    </div>
+                    <ChevronsUpDown className="ml-auto size-4" />
+                  </SidebarMenuButton>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  className="w-[--radix-dropdown-menu-trigger-width]"
+                  align="start"
+                >
+                  {versions.map((version) => (
+                    <DropdownMenuItem
+                      key={version}
+                      onSelect={() => setSelectedVersion(version)}
+                    >
+                      v{version}
+                      {version === selectedVersion && (
+                        <Check className="ml-auto size-4" />
+                      )}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </SidebarMenuItem>
+          </SidebarMenu>
+          <form>
+            <SidebarGroup className="py-0">
+              <SidebarGroupContent className="relative">
+                <Label htmlFor="search" className="sr-only">
+                  Search documentation
+                </Label>
+                <SidebarInput
+                  id="search"
+                  placeholder="Search documentation..."
+                  className="pl-8"
+                />
+                <Search className="pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 select-none text-muted-foreground" />
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </form>
+        </SidebarHeader>
+        <SidebarContent>
+          {navigation.map((section) => (
+            <SidebarGroup key={section.title}>
+              <SidebarGroupLabel>{section.title}</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {section.items.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild isActive={item.isActive}>
+                        <Link href={item.href}>
+                          <div className="flex flex-col gap-0.5">
+                            <span>{item.title}</span>
+                            <span className="text-xs text-muted-foreground">
+                              {item.description}
+                            </span>
+                          </div>
+                          {item.badge && (
+                            <Badge
+                              variant={
+                                item.badge === "Advanced"
+                                  ? "destructive"
+                                  : "default"
+                              }
+                              className="ml-auto"
+                            >
+                              {item.badge}
+                            </Badge>
+                          )}
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          ))}
+        </SidebarContent>
+        <SidebarRail />
+      </Sidebar>
+      <SidebarInset>
+        <header className="sticky top-0 flex h-14 items-center gap-2 border-b bg-background px-4">
+          <SidebarTrigger />
+          <Separator orientation="vertical" className="h-4" />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/docs">Core Concepts</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Basic Types</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </header>
+        <div className="flex-1 p-6">{children}</div>
+      </SidebarInset>
+    </>
   );
 }
+
+export default TypeScriptDocs;
