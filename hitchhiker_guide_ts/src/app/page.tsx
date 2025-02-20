@@ -83,26 +83,6 @@ const navigation = [
       },
     ],
   },
-  {
-    title: "Advanced Topics",
-    items: [
-      {
-        title: "Type Manipulation",
-        href: "/type-manipulation",
-        description: "Advanced type system features",
-      },
-      {
-        title: "Decorators",
-        href: "/decorators",
-        description: "Annotate your classes and members",
-      },
-      {
-        title: "Utility Types",
-        href: "/utility-types",
-        description: "Built-in type transformations",
-      },
-    ],
-  },
 ];
 
 function TypeScriptDocs({ children }: { children: React.ReactNode }) {
