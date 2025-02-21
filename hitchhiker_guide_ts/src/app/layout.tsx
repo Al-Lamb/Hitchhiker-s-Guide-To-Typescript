@@ -1,5 +1,5 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
-import TypeScriptDocs from "@/app/page.tsx";
+import TypeScriptDocs from "./page";
 
 export default function RootLayout({
   children,

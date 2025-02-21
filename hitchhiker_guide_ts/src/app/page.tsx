@@ -4,10 +4,18 @@ import * as React from "react";
 import { Code2 } from "lucide-react";
 import Link from "next/link";
 import Header from "./Header";
+import Intro from "./intro/page";
+import Home from "./generics/page";
+import Installation from "./install/page"; // Add import for Installation page
+import Configuration from "./config/page"; // Add import for Configuration page
+import BasicTypes from "./types/page"; // Add import for Basic Types page
+import Interfaces from "./interfaces/page"; // Add import for Interfaces page
+import Functions from "./functions/page"; // Add import for Functions page
+import Classes from "./classes/page"; // Add import for Classes page
 
 import { Badge } from "@/components/ui/badge";
 import {
-  Sidebar,
+  Sidebar as UISidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
@@ -26,17 +34,17 @@ const navigation = [
     items: [
       {
         title: "Introduction to TypeScript",
-        href: "/intro",
+        href: "#intro",
         description: "Learn what TypeScript is and why you should use it",
       },
       {
         title: "Installation",
-        href: "/install",
+        href: "#install",
         description: "Set up TypeScript in your project",
       },
       {
         title: "TypeScript Configuration",
-        href: "/config",
+        href: "#config",
         description: "Configure TypeScript for your needs",
         badge: "Essential",
       },
@@ -47,28 +55,28 @@ const navigation = [
     items: [
       {
         title: "Basic Types",
-        href: "/types",
+        href: "#types",
         description: "Understanding TypeScript's basic types",
         isActive: true,
       },
       {
         title: "Interfaces",
-        href: "/interfaces",
+        href: "#interfaces",
         description: "Define complex type structures",
       },
       {
         title: "Functions",
-        href: "/functions",
+        href: "#functions",
         description: "Type-safe function declarations",
       },
       {
         title: "Classes",
-        href: "/classes",
+        href: "#classes",
         description: "Object-oriented programming with TypeScript",
       },
       {
         title: "Generics",
-        href: "/generics",
+        href: "#generics",
         description: "Write reusable, type-safe code",
         badge: "Advanced",
       },
@@ -76,7 +84,11 @@ const navigation = [
   },
 ];
 
-function TypeScriptDocs({ children }: { children: React.ReactNode }) {
+export default function TypeScriptDocs({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [currentSection, setCurrentSection] = React.useState("");
   const [currentItem, setCurrentItem] = React.useState("");
 
@@ -85,11 +97,38 @@ function TypeScriptDocs({ children }: { children: React.ReactNode }) {
     setCurrentItem(itemTitle);
   };
 
+  const renderContent = () => {
+    switch (currentItem) {
+      case "Introduction to TypeScript":
+        return <Intro />;
+      case "Generics":
+        return <Home />;
+      case "Installation":
+        return <Installation />;
+      case "TypeScript Configuration":
+        return <Configuration />;
+      case "Basic Types":
+        return <BasicTypes />;
+      case "Interfaces":
+        return <Interfaces />;
+      case "Functions":
+        return <Functions />;
+      case "Classes":
+        return <Classes />;
+      default:
+        return (
+          <div>
+            Select a topic from the sidebar to begin learning TypeScript.
+          </div>
+        );
+    }
+  };
+
   return (
     <div>
       <Header sectionTitle={currentSection} itemTitle={currentItem} />
       <div className="flex">
-        <Sidebar>
+        <UISidebar>
           <SidebarHeader>
             <SidebarMenu>
               <SidebarMenuItem style={{ listStyleType: "none" }}>
@@ -130,19 +169,19 @@ function TypeScriptDocs({ children }: { children: React.ReactNode }) {
                               <span className="text-xs text-muted-foreground">
                                 {item.description}
                               </span>
+                              {item.badge && (
+                                <Badge
+                                  variant={
+                                    item.badge === "Advanced"
+                                      ? "destructive"
+                                      : "default"
+                                  }
+                                  className="ml-auto"
+                                >
+                                  {item.badge}
+                                </Badge>
+                              )}
                             </div>
-                            {item.badge && (
-                              <Badge
-                                variant={
-                                  item.badge === "Advanced"
-                                    ? "destructive"
-                                    : "default"
-                                }
-                                className="ml-auto"
-                              >
-                                {item.badge}
-                              </Badge>
-                            )}
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
@@ -153,12 +192,10 @@ function TypeScriptDocs({ children }: { children: React.ReactNode }) {
             ))}
           </SidebarContent>
           <SidebarRail />
-        </Sidebar>
+        </UISidebar>
 
-        <div className="flex-1 p-6">{children}</div>
+        <div className="flex-1 p-6">{renderContent()}</div>
       </div>
     </div>
   );
 }
-
-export default TypeScriptDocs;

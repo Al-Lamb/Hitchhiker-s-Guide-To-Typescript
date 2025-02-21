@@ -1,6 +1,6 @@
-export default function InstallPage() {
+export default function Installation() {
   return (
-    <div className="max-w-4xl">
+    <div id="install" className="max-w-4xl">
       <h1 className="text-4xl font-bold mb-6">Installing TypeScript</h1>
 
       <div className="prose dark:prose-invert">

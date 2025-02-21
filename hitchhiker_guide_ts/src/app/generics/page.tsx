@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-6">Generics in TypeScript</h1>
+      <h1 id="generics" className="text-4xl font-bold mb-6">Generics in TypeScript</h1>
 
       <div className="prose dark:prose-invert">
         <p className="text-lg mb-4">
@@ -11,7 +11,7 @@ export default function Home() {
           code.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">
+        <h2 id="advantages" className="text-2xl font-semibold mt-8 mb-4">
           Advantages of Using Generics
         </h2>
         <ul className="space-y-2 list-disc pl-6">
@@ -27,14 +27,6 @@ export default function Home() {
             Generics are usually checked at the compile time so no issue exists
             in runtime.
           </li>
-        </ul>
-
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Example</h2>
-        <ul>
-          <code className="block bg-background p-3 rounded">
-            function createPair(first: S, second: T): [S, T] &#123; <br />
-            &nbsp;&nbsp;return [v1, v2]; <br />
-          </code>
         </ul>
       </div>
     </div>

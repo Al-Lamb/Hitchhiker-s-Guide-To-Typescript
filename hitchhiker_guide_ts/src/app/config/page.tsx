@@ -1,4 +1,4 @@
-export default function ConfigPage() {
+export default function Configuration() {
   return (
     <div className="max-w-4xl">
       <h1 className="text-4xl font-bold mb-6">TypeScript Configuration</h1>
